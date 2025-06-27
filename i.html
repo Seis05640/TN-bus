@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="newHSite/images/favicon.ico" rel="icon">
+<title>TNSTC</title>
+<meta name="description" content="TNSTC">
+<meta name="author" content="harnishdesign.net">
+<!-- Web Fonts
+============================================= -->
+<!-- <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900' type='text/css'> -->
+<!-- Stylesheet
+============================================= -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="newHSite/vendor/font-awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="newHSite/vendor/owl.carousel/assets/owl.carousel.min.css">
+<link rel="stylesheet" type="text/css" href="newHSite/vendor/owl.carousel/assets/owl.theme.default.min.css">
+<link rel="stylesheet" type="text/css" href="newHSite/vendor/jquery-ui/jquery-ui.css">
+<!-- <link rel="stylesheet" type="text/css" href="newHSite/vendor/daterangepicker/daterangepicker.css" /> -->
+<link rel="stylesheet" type="text/css" href="newHSite/css/stylesheet.css">
+<!-- <script src="newSite/js/jquery-1.9.1.js"></script> TAKING TIME-->
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+
+<!-- BackButton Restricting -->
+<script>
+javascript: window.history.forward(1);
+    </script>
+<!-- BackButton Restricting --> 
+<!-- Start Multi tab Restricting -->
+<script type="text/javascript">
+let localStorageTimeout = 15 * 1000; // 15,000 milliseconds = 15 seconds.
+let localStorageResetInterval = 10 * 1000; // 10,000 milliseconds = 10 seconds.
+let localStorageTabKey = 'test-application-browser-tab';
+let sessionStorageGuidKey = 'browser-tab-guid';
+function createGUID() {
+  let guid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    /*eslint-disable*/
+    let r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : (r & 0x3 | 0x8);
+    /*eslint-enable*/
+    return v.toString(16);
+  });
+
+  return guid;
+}
+function testTab() {
+  let sessionGuid = sessionStorage.getItem(sessionStorageGuidKey) || createGUID();
+  let tabObj = JSON.parse(localStorage.getItem(localStorageTabKey)) || null;
+sessionStorage.setItem(sessionStorageGuidKey, sessionGuid);
+  // If no or stale tab object, our session is the winner.  If the guid matches, ours is still the winner
+  if (tabObj === null || (tabObj.timestamp < new Date().getTime() - localStorageTimeout) || tabObj.guid === sessionGuid) {
+    function setTabObj() {
+      let newTabObj = {
+        guid: sessionGuid,
+        timestamp: new Date().getTime()
+      };
+      localStorage.setItem(localStorageTabKey, JSON.stringify(newTabObj));
+    }
+    setTabObj();
+    setInterval(setTabObj, localStorageResetInterval);
+    return true;
+  } else {
+    // An active tab is already open that does not match our session guid.
+    return false;
+  }
+}
+if (testTab()) {
+  //document.getElementById('result').innerHTML = 'tab is good';
+//alert("GOOD TAB");  
+} else {
+  //document.getElementById('result').innerHTML = 'tab is bad';
+alert("Sorry application was aready opened in another tab !! Due to security reason we are not allowing mutilple tab Booking.");
+window.location = 'http://www.google.com';
+}
+</script>
+<!-- END Multi tab Restricting -->
+
+<script>
+document.addEventListener('DOMContentLoaded', (event) => {
+    var popup = document.getElementById("popup");
+    var openPopupBtn = document.getElementById("openPopupBtn");
+    var closeBtn = document.querySelector(".close-btn");
+
+    openPopupBtn.onclick = function() {
+        popup.style.display = "block";
+    }
+
+    closeBtn.onclick = function() {
+        popup.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == popup) {
+            popup.style.display = "none";
+        }
+    }
+});
+</script>
+<style>
+#openPopupBtn {
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.popup-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+.icon-inside {
+    position: absolute;
+    right: 15px;
+    top: calc(50% - 1px);
+    pointer-events: none;
+    font-size: 18px;
+    font-size: 1.125rem;
+    color: #c4c3c3;
+ &nbsp;&nbsp;&nbsp;z-index:&nbsp;3;
+}
+.footerTxtCol {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 22px; 
+}
+
+@media screen and (max-width:600px) {
+            #homeTabsM { display:none; 
+            }
+        }
+</style>
+<script type="text/javascript">
+$( function() {
+    $( "#txtdeptDateRtrip" ).datepicker({
+    	dateFormat: 'dd/mm/yy',
+    	changeMonth:'true',
+    	minDate: 'today',
+    	maxDate: '+90D'
+    });
+  } );
+$( function() {
+    $( "#txtdeptDateOtrip" ).datepicker({
+    	dateFormat: 'dd/mm/yy',
+    	changeMonth:'true',
+    	minDate: 'today',
+    	maxDate: '+90D'
+    });
+  } );
+$( function() {
+    $( "#txtdeptDatePtrip" ).datepicker({
+    	dateFormat: 'dd/mm/yy',
+    	changeMonth:'true',
+    	minDate: 'today',
+    	maxDate: '+90D'
+    });
+  } );
+</script>
+<script type="text/javascript">
+function packageTrips(b,a){
+    document.getElementById("PACK").style.display ="";
+	document.getElementById("BOOK").style.display ="none";
+	document.getElementById("matchPStartPlace").value=b;
+	document.getElementById("matchPEndPlace").value=a;
+}
+	function favouriteSearch(b,a){
+		var urlToPost;
+		var domainUrl = document.URL;
+		//finalDomain = "https://"+fnGetDomain(domainUrl);
+		var protocol = window.location.protocol;
+		// Construct the final domain using the dynamic protocol
+		var finalDomain = protocol + "//" + fnGetDomain(domainUrl);
+		document.forms[0].languageType.value = "E";
+		var applicationURL = finalDomain+"/OTRSOnline/jqreq.do?hiddenAction=SearchService&FPlace="+b+"&TPlace="+a+"";
+		document.forms[0].action = applicationURL;
+		document.forms[0].submit()
+	}
+	function pageType(languageType){
+		var urlToPost;
+		var domainUrl = document.URL;
+		//finalDomain = "https://"+fnGetDomain(domainUrl);
+		var protocol = window.location.protocol;
+		// Construct the final domain using the dynamic protocol
+		var finalDomain = protocol + "//" + fnGetDomain(domainUrl);
+		document.forms[0].languageType.value = "E";
+		var applicationURL = finalDomain+"/OTRSOnline/jqreq.do?hiddenAction=Login";
+		document.forms[0].action = applicationURL;
+		document.forms[0].submit()
+	}
+	function cancelTicket(languageType){
+    	var urlToPost;
+    	var domainUrl = document.URL;
+    	//finalDomain = "https://"+fnGetDomain(domainUrl);
+		var protocol = window.location.protocol;
+		// Construct the final domain using the dynamic protocol
+		var finalDomain = protocol + "//" + fnGetDomain(domainUrl);
+    	document.forms[0].languageType.value = "E";
+    	var applicationURL = finalDomain+"/OTRSOnline/preGuestTicketCancellation.do";
+    	document.forms[0].action = applicationURL;
+    	document.forms[0].submit()
+	}
+	function viewTicket(languageType){
+   		var urlToPost;
+    	var domainUrl = document.URL;
+    	//finalDomain = "https://"+fnGetDomain(domainUrl);
+		var protocol = window.location.protocol;
+		// Construct the final domain using the dynamic protocol
+		var finalDomain = protocol + "//" + fnGetDomain(domainUrl);
+    	document.forms[0].languageType.value = "E";
+    	var applicationURL = finalDomain+"/OTRSOnline/preGuestViewBookingHistory.do";
+    	document.forms[0].action = applicationURL;
+    	document.forms[0].submit()
+	}
+</script>
+<script type="text/javascript">
+function isNumberString(InString)  {
+	var value=InString;
+	var RefString="1234567890";
+	for (Count=0; Count < value.length; Count++)  {
+		TempChar= value.substring (Count, Count+1);
+		if (RefString.indexOf (TempChar, 0)==-1)  
+			return (false);
+	}
+	return (true);
+}
+</script>
+<script type="text/javascript">
+//$.noConflict();
+	var fromPlaceID="";
+	var toPlaceID="";
+	var fromPlaceCode="";
+	var toPlaceCode="";
+	var doj="";
+	var selectedFromPlace= "";
+	var selectedToPlace= "";
+	var domainUrl = document.URL;
+	//finalDomain = "https://"+fnGetDomain(domainUrl);//PRD
+	//finalDomain = "http://"+fnGetDomain(domainUrl);//STG
+	var protocol = window.location.protocol;
+	// Construct the final domain using the dynamic protocol
+	var finalDomain = protocol + "//" + fnGetDomain(domainUrl);
+	var applicationURL = finalDomain+"/OTRSOnline/jqreq.do?";
+	function fnGetDomain(url){
+  		return url.match(/:\/\/(.[^/]+)/)[1];
+	}//End of 'function fnGetDomain(url){'
+		 
+function loadClassList(fromPlaceID,toPlaceID){
+	         //ClearOptions();
+			if(document.getElementById("matchStartPlace").value == "" || document.getElementById("matchEndPlace").value == ""){
+	       }else{
+	            var action="GetClass";
+	           doj= document.getElementById("txtdeptDateOtrip").value;
+			//alert("Hello:"+doj);	
+	           $.ajax({
+					type:"POST",
+	          		url: applicationURL,
+	          		data:"hiddenAction=GetClass&Sid="+fromPlaceID+"&Eid="+toPlaceID+"&Doj="+doj,
+	          		cache: false,
+	             	success:function(response){
+	               var s=response.split("^");      
+	               var  select=document.getElementById("selectClass");
+	               for(indx=0;indx<s.length-1;indx++){
+	                  var s2=s[indx].split(':');
+	                  var optn = document.createElement("OPTION");
+	                  optn.text = s2[1];
+	                  optn.value = s2[0];
+	                  select.options.add(optn);     
+	              } //End of For Loop
+			    } // End of 'Success()'	
+	}); //End of 'jquery_auto.ajax({'
+	}// else End
+	} //End of 'function loadClassList(){'
+	function clearAutoCompleteFromPlace() {
+	   $("#matchStartPlace").val('');
+	}
+	function clearAutoCompleteToPlace() {
+  	     $("#matchEndPlace").val('');
+  	}
+	$(function() {
+	    var fromPlacesListID = {};
+	    var fromPlaceListCode = {};
+
+	    $("#matchStartPlace").autocomplete({
+	        autoFocus: true,
+	        minLength: 3,
+	        delay: 50,
+	        source: function(request, response) { 
+	            $.ajax({
+	                type: "POST",
+	                url: applicationURL,
+	                data: "hiddenAction=LoadFromPlaceList&matchStartPlace=" + request.term,
+	                error: function(xhr, textStatus, errorThrown) {
+	                    alert('request failed');
+	                },
+	                success: function(data) { 
+	                    if (data.length == 0) {
+	                        fromPlaceID = null;
+	                        fromPlaceCode = null;
+	                    } else {
+	                        var fromPlacesNamesList = [];
+	                        fromPlacesListID = {};
+	                        fromPlaceListCode = {};
+	                        var f = data.split("^"); 
+	                        for (var indx = 0; indx < f.length - 1; indx++) {
+	                            var f1 = f[indx].split(':');
+	                            fromPlacesNamesList[indx] = f1[2]; 
+	                            fromPlacesListID[f1[2]] = f1[0];   
+	                            fromPlaceListCode[f1[2]] = f1[1];
+	                        }
+	                        response(fromPlacesNamesList);
+	                    }
+	                }
+	            });
+	        }, 
+	        select: function(event, ui) {
+	            fromPlaceID = fromPlacesListID[ui.item.value];
+	            fromPlaceCode = fromPlaceListCode[ui.item.value];
+	            setTimeout(function() {
+	                document.getElementById('matchEndPlace').focus();
+	            }, 10);
+	        },
+	        change: function(event, ui) {
+	            if (!ui.item) {
+	                fromPlaceID = null;
+	                fromPlaceCode = null;
+	            }
+	        }
+	    });
+
+	    var toPlacesListID = {};
+	    var toPlacesListCode = {};
+
+	    $("#matchEndPlace").autocomplete({
+	        autoFocus: true,
+	        minLength: 3,
+	        delay: 50,
+	        source: function(request, response) { 
+	            $.ajax({
+	                type: "POST",
+	                url: applicationURL,
+	                data: "hiddenAction=LoadTOPlaceList&matchEndPlace=" + request.term,
+	                success: function(data) { 
+	                    if (data.length == 0) {
+	                        toPlaceID = null;
+	                        toPlaceCode = null;
+	                    } else {
+	                        var toPlacesNamesList = [];
+	                        toPlacesListID = {};
+	                        toPlacesListCode = {};
+	                        var t = data.split("^"); 
+	                        for (var indx = 0; indx < t.length - 1; indx++) {
+	                            var t1 = t[indx].split(':');
+	                            toPlacesNamesList[indx] = t1[2];  // t1[2] = PlaceNames, t1[0] = PlaceID, t1[1] = PlaceCode
+	                            toPlacesListID[t1[2]] = t1[0]; 
+	                            toPlacesListCode[t1[2]] = t1[1];  
+	                        }
+	                        response(toPlacesNamesList); 
+	                    }
+	                }
+	            }); 
+	        },
+	        select: function(event, ui) {
+	            toPlaceID = toPlacesListID[ui.item.value];
+	            toPlaceCode = toPlacesListCode[ui.item.value];
+	            setTimeout(function() {
+	                document.getElementById('txtdeptDateOtrip').focus();
+	            }, 10);
+	        },
+	        change: function(event, ui) {
+	            if (!ui.item) {
+	                toPlaceID = null;
+	                toPlaceCode = null;
+	            }
+	        }
+	    });
+	});
+
+	 function setOnwardDate(){
+		    document.forms[0].txtJourneyDate.value = document.getElementById('txtdeptDateOtrip').value;
+		    document.forms[0].hiddenOnwardJourneyDate.value = document.forms[0].txtJourneyDate.value;   
+		    //loadClassList(fromPlaceID,toPlaceID);
+		}
+	function setReturnDate(){
+		    document.forms[0].txtReturnDate.value = document.getElementById('txtdeptDateRtrip').value;
+		    document.forms[0].hiddenReturnJourneyDate.value = document.forms[0].txtReturnDate.value;   
+		   // loadClassList(fromPlaceID,toPlaceID);
+		}
+	function onloadFun(){
+		document.getElementById("matchStartPlace").focus();
+		document.getElementById("matchStartPlace").value = "";
+		document.getElementById("matchEndPlace").value = "";
+
+		var currentTime = new Date();
+        var month = currentTime.getMonth() + 1;
+        var day = currentTime.getDate();
+        var year = currentTime.getFullYear();
+           if(day < 10) day =  "0"+day;
+           if(month < 10) month =  "0"+month;
+           var currentDate = day + "/" + month + "/" + year;
+           var maxResDate = addDays(currentDate, 30);
+           //Setting Current Date nd Max Reservation Date
+           document.forms[0].hiddenCurrentDate.value = currentDate;
+           document.forms[0].hiddenMaxValidReservDate.value=maxResDate;
+           //alert(":hiddenCurrentDate:"+document.forms[0].hiddenCurrentDate.value);
+           //alert(":hiddenMaxValidReservDate:"+document.forms[0].hiddenMaxValidReservDate.value);
+           document.getElementById('txtdeptDateRtrip').value ="DD/MM/YYYY";//Return Date  
+           document.getElementById('txtdeptDateOtrip').value ="DD/MM/YYYY"; //Onward Date 
+           document.forms[0].txtJourneyDate.value = document.getElementById('txtdeptDateOtrip').value; 
+           document.forms[0].txtReturnDate.value = document.getElementById('txtdeptDateRtrip').value; 
+           //
+           var captcha = generateCaptcha();
+           document.getElementById('captcha').innerHTML = captcha;
+           document.getElementById('hidden-captcha').value = captcha;
+           //
+           //removeSessionAttributes();
+		}
+	function removeSessionAttributes() {
+		var xhr = new XMLHttpRequest();
+        xhr.open("GET", "./manageValidateUser.do?Logout=logout", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Session attributes removed successfully
+                //alert("Session attributes removed successfully.");
+            }
+        };
+        xhr.send();
+    }
+	
+	function generateCaptcha() {
+        var captcha = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for (var i = 0; i < 6; i++) {
+            captcha += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return captcha;
+    }
+
+	// Function to validate CAPTCHA
+    function validateCaptcha() {
+        var enteredCaptcha = document.getElementById('userCaptcha').value;
+        var originalCaptcha = document.getElementById('hidden-captcha').value;
+        if (enteredCaptcha === originalCaptcha) {
+            alert('CAPTCHA validation successful!');
+        } else {
+            alert('CAPTCHA validation failed!');
+        }
+    }
+	
+	function addDays(date, days) {
+		darr = date.split("/");    // ["29", "1", "2016"]
+		var date1 = new Date(parseInt(darr[2]),parseInt(darr[1])-1,parseInt(darr[0]));
+		  var result = new Date(date1);
+		  result.setDate(result.getDate() + days);
+		  //return result;
+		  date2 = new Date(result);
+		  var mnth="0";
+		  var days="0";
+		  //alert("date::"+(date2.getMonth()+1));
+		  if((date2.getDate()+1)<10){
+			  //alert("hiiiiiiiiii");
+			  days+=parseInt(date2.getDate());
+			  //alert("hiiiiiiiiii:::"+mnth);
+		  }else{
+			  var days = date2.getDate();
+		  }
+		  if((date2.getMonth()+1)<10){
+			  //alert("hiiiiiiiiii");
+			  mnth+=parseInt(date2.getMonth()+1);
+			  //alert("hiiiiiiiiii:::"+mnth);
+		  }else{
+			  var mnth = date2.getMonth()+1;
+		  }
+		  return days+'/'+mnth+'/'+date2.getFullYear();
+		} 
+	
+	function ClearOptions(){ 
+        document.getElementById("selectClass").options.length = 0;
+        var myselect=document.getElementById("selectClass");
+        var optn = document.createElement("OPTION");
+    }
+    function convertDateFormat(ddmmyy){
+		var dd = ddmmyy.substring(0,2);
+		var mm = ddmmyy.substring(3,5);
+		var yy = ddmmyy.substring(6,10);
+		var mmddyy = mm + '/' + dd + '/' + yy;
+		return mmddyy;
+	}
+	function startDateCompareForEqual(a, b) {
+	b.value = trim(b.value);
+	if (b.value.length > 0) 
+	{
+		var fromDate = new Date(convertDateFormat(a.value));		
+		var toDate = new Date(convertDateFormat(b.value));	
+		diff = toDate.getTime() - fromDate.getTime();
+	    diff = Math.floor(diff / (1000 * 60 * 60 * 24) );
+		if (diff >= 0) 
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	 }
+	 else 
+	 {
+	 	return true;
+	 }
+	}
+	function trim(inputString)
+	{
+		var retValue = inputString;
+		if(retValue!="")
+		{
+			retValue = String(retValue);
+			var ch = retValue.substring(0, 1);
+			while (ch == " ")
+			{
+				retValue = retValue.substring(1, retValue.length);
+				ch = retValue.substring(0, 1);
+			}
+			ch = retValue.substring(retValue.length-1, retValue.length);
+			while (ch == " ")
+			{
+				retValue = retValue.substring(0, retValue.length-1);
+				ch = retValue.substring(retValue.length-1, retValue.length);
+			}
+			while (retValue.indexOf("  ") != -1)
+			{
+				retValue = retValue.substring(0, retValue.indexOf("  ")) + retValue.substring(retValue.indexOf("  ")+1, retValue.length); // Again, there are two spaces in each of the strings
+			}
+		}
+		return retValue; 
+	} // Ends the "trim" function
+	function setPAction(actionName){
+		//alert("Helo");
+		document.forms[0].hiddenAction.value = actionName;
+		document.forms[0].txtAdultMales.value = document.getElementById('txtPAdultMales').value;
+		document.forms[0].txtChildMales.value = document.getElementById('txtPChildMales').value;
+		document.forms[0].hiddenMaxNoOfPassengers.value="16";
+		var adultMales=0;		var childMales=0;
+		if(document.forms[0].txtAdultMales.value.length > 0){
+			adultMales=parseInt(document.forms[0].txtAdultMales.value);
+		}else{
+			document.forms[0].txtAdultMales.value = 0;
+		}
+		if(document.forms[0].txtChildMales.value.length > 0){
+			childMales=parseInt(document.forms[0].txtChildMales.value);
+		}else{
+			document.forms[0].txtChildMales.value = 0;
+		}
+		document.forms[0].hiddenTotalMales.value=adultMales+childMales;
+		document.forms[0].txtAdultFemales.value = document.getElementById('txtPAdultFemales').value;
+		document.forms[0].txtChildFemales.value = document.getElementById('txtPChildFemales').value;
+		var adultFemales=0; var childFemales=0;
+		if(document.forms[0].txtAdultFemales.value.length > 0){
+			adultFemales=parseInt(document.forms[0].txtAdultFemales.value);
+		}else{
+			document.forms[0].txtAdultFemales.value = 0;
+		}
+		if(document.forms[0].txtChildFemales.value.length > 0){
+			childFemales=parseInt(document.forms[0].txtChildFemales.value);
+		}else{
+			document.forms[0].txtChildFemales.value = 0;
+		}
+		document.forms[0].hiddenTotalFemales.value = adultFemales+childFemales;
+		tolSeatsRequired = parseInt(document.forms[0].hiddenTotalMales.value)+parseInt(document.forms[0].hiddenTotalFemales.value);
+		var totalAdults1 = adultMales + adultFemales ;
+		document.forms[0].selectStartPlace.value= fromPlaceCode; 
+		document.forms[0].selectEndPlace.value= toPlaceCode; 	
+		document.forms[0].matchStartPlace.value = "KUMBAKONAM";
+		document.forms[0].matchEndPlace.value = "KUMBAKONAM NAVAGRAHA&nbsp;SPL";
+		
+		
+		document.forms[0].txtdeptDatePtrip.value=document.getElementById('txtdeptDatePtrip').value;
+
+		if(!startDateCompareForEqual(document.forms[0].hiddenCurrentDate, document.forms[0].txtdeptDatePtrip)){
+            alert("Invalid Journey Date "+document.forms[0].txtdeptDatePtrip.value+" Reservation is allowed only for current date and above");
+            return;
+        }else if((document.forms[0].txtAdultMales.value == 0) &&(document.forms[0].txtAdultFemales.value == 0) &&(document.forms[0].txtChildMales.value == 0) &&(document.forms[0].txtChildFemales.value == 0)){
+			alert("No. of passenger is required");	
+			setTimeout('document.forms[0].txtAdultMales.focus()', 10 );
+			document.forms[0].txtPAdultMales.focus();
+			return;
+		}else if(!isNumberString(document.forms[0].txtAdultMales.value)){
+			alert("Adult Male(s) value is invalid");	
+			setTimeout('document.forms[0].txtAdultMales.focus()', 10 );
+			return;
+		}else if(!isNumberString(document.forms[0].txtAdultFemales.value)){
+			alert("Adult Female(s) value is invalid");	
+			setTimeout( 'document.forms[0].txtAdultFemales.focus()', 10 );
+			return;
+		}else if(!isNumberString(document.forms[0].txtChildMales.value)){
+			alert("Child Male(s) value is invalid");	
+			setTimeout( 'document.forms[0].txtChildMales.focus()', 10 );
+			return;
+		}else if(!isNumberString(document.forms[0].txtChildFemales.value)){
+			alert("Child Female(s) value is invalid");	
+			setTimeout( 'document.forms[0].txtChildFemales.focus()', 10 );
+			return;
+		}else if(tolSeatsRequired > parseInt(document.forms[0].hiddenMaxNoOfPassengers.value)){
+			alert("Maximum of " +(document.forms[0].hiddenMaxNoOfPassengers.value)+" seat(s) allowed per transaction.");  
+			setTimeout( 'document.forms[0].txtAdultMales.focus()', 10 );
+			return; 
+        }else if(totalAdults1 < 1 ){
+			alert("Sorry !! No Child can travel without Adult.");
+			return; 
+		}else{
+			url = applicationURL+"hiddenAction=SearchService";
+			document.forms[0].hiddenStartPlaceID.value="431";
+			document.forms[0].action = url;
+	        document.forms[0].hiddenEndPlaceID.value="1394";
+	        document.forms[0].txtStartPlaceCode.value = "KUM";
+	        document.forms[0].txtEndPlaceCode.value = "KUMS";
+	        document.forms[0].hiddenStartPlaceName.value = "KUMBAKONAM";
+	        document.forms[0].hiddenEndPlaceName.value ="KUMBAKONAM NAVAGRAHA&nbsp;SPL";
+	        document.forms[0].matchStartPlace.value ="KUMBAKONAM";
+	        document.forms[0].matchEndPlace.value ="KUMBAKONAM NAVAGRAHA&nbsp;SPL";
+	        document.forms[0].txtJourneyDate.value=document.getElementById("txtdeptDatePtrip").value;  
+			document.forms[0].hiddenOnwardJourneyDate.value = document.forms[0].txtdeptDatePtrip.value;
+			document.forms[0].hiddenReturnJourneyDate.value = "DD/MM/YYYY";
+			document.forms[0].hiddenOnwardTimeSlab.value = "00:00-23:59";
+			document.forms[0].selectOnwardTimeSlab.value = "00:00-23:59";
+			document.forms[0].hiddenClassCategoryLookupID.value = "0";
+			document.forms[0].selectClass.value = "0";
+			document.forms[0].languageType.value = "E";
+			//alert("ALL FINE");
+			document.forms[0].submit();
+			document.getElementById("dvLoadStatus").style.display = "";
+			document.getElementById("disableButton").style.display = "none";
+			}
+	}
+	function setRPAction(actionName){
+		document.getElementById("PACK").style.display ="none";
+		document.getElementById("BOOK").style.display ="";
+	}
+	
+
+	
+function setSearchAction(actionName){
+		//alert("actionName:"+actionName);
+	    document.forms[0].hiddenAction.value = actionName;
+		document.forms[0].hiddenMaxNoOfPassengers.value="16";
+		document.forms[0].selectStartPlace.value= fromPlaceCode; 
+		document.forms[0].selectEndPlace.value= toPlaceCode; 	
+		document.forms[0].matchStartPlace.value = document.getElementById('matchStartPlace').value;
+		document.forms[0].matchEndPlace.value = document.getElementById('matchEndPlace').value;
+		//alert(document.forms[0].matchStartPlace.value);
+		document.forms[0].hiddenUserType.value = "G";
+        var returnDate=document.forms[0].txtReturnDate.value;
+		if(trim(document.forms[0].matchStartPlace.value).length == 0){
+            alert("'From' place is required.");
+            setTimeout('document.forms[0].matchStartPlace.focus()', 10 );  
+            return;      
+        }else if(trim(document.forms[0].matchEndPlace.value).length == 0){
+            alert("'To' place is required.");
+            setTimeout('document.forms[0].matchEndPlace.focus()', 10 );
+            return;        
+        }else if(trim(document.forms[0].matchStartPlace.value) == trim(document.forms[0].matchEndPlace.value)){
+            alert("From Place and To Place should not be the same");
+            setTimeout('document.forms[0].matchEndPlace.focus()', 10 );
+            return;        
+        }else if(trim(document.forms[0].selectStartPlace.value) == "" || trim(document.forms[0].selectStartPlace.value)==null ||trim(document.forms[0].selectStartPlace.value)=="null" ){
+            alert("Invalid From Place");
+            setTimeout('document.forms[0].matchStartPlace.focus()', 10 );
+            return;        
+        }else if(trim(document.forms[0].selectEndPlace.value) == "" || trim(document.forms[0].selectEndPlace.value)==null || trim(document.forms[0].selectEndPlace.value)=="null"){
+            alert("Invalid To Place");
+            setTimeout('document.forms[0].matchEndPlace.focus()', 10 );
+            return;        
+        }else if(!startDateCompareForEqual(document.forms[0].hiddenCurrentDate, document.forms[0].txtJourneyDate)){
+            alert("Invalid Journey Date "+document.forms[0].txtJourneyDate.value+" Reservation is allowed only for current date and above");
+            return;
+        }else if(returnDate!="DD/MM/YYYY" && !startDateCompareForEqual(document.forms[0].hiddenCurrentDate, document.forms[0].txtReturnDate)){
+            alert("Invalid Return Journey Date "+document.forms[0].txtReturnDate.value+" Reservation is allowed only for current date and above");
+            return;
+        }else if(returnDate!="DD/MM/YYYY" && !startDateCompareForEqual(document.forms[0].txtJourneyDate, document.forms[0].txtReturnDate)){
+            alert("Return Journey Date should be greater than or equal to Onward Date: "+document.forms[0].txtReturnDate.value);
+            return;
+        }
+
+		var chkAddOnCheckbox = document.getElementById('chkSingleLadyCheckbox');
+		//alert(chkAddOnCheckbox);
+		// Check if the checkbox is checked
+		if (chkAddOnCheckbox.checked) {
+			document.forms[0].checkSingleLady.value ="Y";
+		} else {
+			document.forms[0].checkSingleLady.value ="N";
+		}
+		//alert("Hello:"+document.forms[0].checkSingleLady.value);
+		url = applicationURL+"hiddenAction=SearchService";
+		document.forms[0].hiddenStartPlaceID.value=fromPlaceID;
+		document.forms[0].action = url;
+        document.forms[0].hiddenEndPlaceID.value=toPlaceID;
+        document.forms[0].txtStartPlaceCode.value = fromPlaceCode;
+        document.forms[0].txtEndPlaceCode.value = toPlaceCode;
+        document.forms[0].hiddenStartPlaceName.value =document.getElementById("matchStartPlace").value;
+        document.forms[0].hiddenEndPlaceName.value =document.getElementById("matchEndPlace").value;
+        document.forms[0].matchStartPlace.value =document.getElementById("matchStartPlace").value;
+        document.forms[0].matchEndPlace.value =document.getElementById("matchEndPlace").value;
+        document.forms[0].txtJourneyDate.value=document.getElementById("txtdeptDateRtrip").value;  
+		document.forms[0].hiddenOnwardJourneyDate.value = document.getElementById("txtdeptDateOtrip").value;
+		document.forms[0].hiddenReturnJourneyDate.value = document.getElementById("txtdeptDateRtrip").value;
+		document.forms[0].languageType.value = "E";
+		//alert("ALL WELL");
+		 var button = document.getElementById('searchButton');
+        // Change button content to spinner
+        button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Searching...';
+        // Disable button to prevent multiple clicks
+        button.disabled = true;
+		
+		
+		document.forms[0].submit();
+	}	
+</script> 
+<script type="text/javascript"> 
+//Function to handle form actions.
+function setAction(actionName) {
+	document.forms[0].hiddenAction.value = actionName;
+     document.forms[0].txtUserLoginID.value = document.getElementById('txtUserLoginID').value;
+     document.forms[0].txtPassword.value = document.getElementById('txtPassword').value;
+     document.forms[0].txtCaptchaCode.value = document.getElementById('txtCaptchaCode').value;
+     
+	if (actionName == "ValidateUser") {
+		if(trim(document.forms[0].txtUserLoginID.value) == ""){
+			alert("User Name is Required");
+			document.getElementById('txtUserLoginID').focus();
+		}else if(document.forms[0].txtPassword.value == ""){
+			alert("Password is Required");
+			document.getElementById('txtPassword').focus();
+		}else if(document.forms[0].txtCaptchaCode.value == ""){
+			alert("Captcha Code is Required");
+			document.getElementById('txtCaptchaCode').focus();
+		}else {
+			var password = encodeToBase64(document.forms[0].txtPassword.value);
+			var userName = encodeToBase64(document.forms[0].txtUserLoginID.value);
+			document.forms[0].txtPassword.value=password;
+			document.forms[0].txtUserLoginID.value=userName;	
+			url = applicationURL+"hiddenAction=ValidateUser";
+			document.forms[0].action = url;	
+			var enteredCaptcha = document.getElementById('txtCaptchaCode').value;
+            var originalCaptcha = document.getElementById('hidden-captcha').value;
+            if (enteredCaptcha === originalCaptcha) {
+                //alert('CAPTCHA validation successful!');
+            } else {
+                alert('Please enter valid CAPTCHA Code.');
+                document.getElementById('txtCaptchaCode').focus();
+            }
+            //alert("ALL WELL");
+            var button = document.getElementById('ValidateUser');
+            // Change button content to spinner
+            button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Login...';
+            // Disable button to prevent multiple clicks
+            button.disabled = true;
+            validateCredentails(userName,password);
+			//document.forms[0].submit();
+		}
+	}else if(actionName == "ResetPassword"){
+		var txtFUserLoginID = trim(document.getElementById('txtFUserLoginID').value);
+		var txtEMailID = trim(document.getElementById('txtEMailID').value);
+		if(trim(document.getElementById('txtFUserLoginID').value) == ""){
+			alert("User Name/Email is Required");
+			document.getElementById('txtFUserLoginID').focus();
+		} else if (!validateEmail(txtEMailID)) {
+	        alert("Please enter a valid email address");
+	        document.getElementById('txtEMailID').focus();
+	    }
+		document.forms[0].txtRUserLoginID.value=document.getElementById('txtRUserLoginID').value;
+		document.forms[0].txtRMobileNo.value=document.getElementById('txtRMobileNo').value;	
+		url = applicationURL+"hiddenAction=ResetPassword";
+		document.forms[0].action = url;	
+        var button = document.getElementById('ResetPassword');
+        resetPasswordReq(txtFUserLoginID,txtEMailID);
+		
+	}
+	//
+	else if(actionName == "RegisterUser"){
+		var userLoginID = trim(document.getElementById('txtRUserLoginID').value);
+		var mobileNo = trim(document.getElementById('txtRMobileNo').value);
+		if(trim(document.getElementById('txtRUserLoginID').value) == ""){
+			alert("User Name/Email is Required");
+			document.getElementById('txtRUserLoginID').focus();
+		} else if (!validateEmail(userLoginID)) {
+	        alert("Please enter a valid email address");
+	        document.getElementById('txtRUserLoginID').focus();
+	    } else if(document.getElementById('txtRMobileNo').value == ""){
+			alert("MobileNo is Required");
+			document.getElementById('txtRMobileNo').focus();
+		}  else if (!validateMobileNo(mobileNo)) {
+	        alert("Please enter a valid mobile number");
+	        document.getElementById('txtRMobileNo').focus();
+	    } else if(document.getElementById('txtRUserFullName').value == ""){
+			alert("UserFullName is Required");
+			document.getElementById('txtRUserFullName').focus();
+		}else if(document.getElementById('txtRPassword').value == ""){
+			alert("Password is Required");
+			document.getElementById('txtRPassword').focus();
+		}else {
+			document.forms[0].txtRUserLoginID.value=document.getElementById('txtRUserLoginID').value;
+			document.forms[0].txtRMobileNo.value=document.getElementById('txtRMobileNo').value;	
+			document.forms[0].txtRUserFullName.value=document.getElementById('txtRUserFullName').value;
+			document.forms[0].txtRPassword.value=document.getElementById('txtRPassword').value;
+
+            var UserLoginID=document.forms[0].txtRUserLoginID.value;
+            var MobileNo=document.forms[0].txtRMobileNo.value;
+            var UserFullName=document.forms[0].txtRUserFullName.value;
+            var Password=document.forms[0].txtRPassword.value;
+
+			url = applicationURL+"hiddenAction=RegisterUser";
+			document.forms[0].action = url;	
+            var button = document.getElementById('RegisterUser');
+            // Change button content to spinner
+            //button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Register...';
+            // Disable button to prevent multiple clicks
+           // button.disabled = true;
+            registerCredentails(UserLoginID,MobileNo,UserFullName,Password);
+		}
+	}
+	else {
+		document.forms[0].submit();		
+	}
+}
+
+function resetPasswordReq(txtFUserLoginID,txtEMailID) {
+    var details=txtFUserLoginID+","+txtEMailID;
+   alert(details);
+    var xhttp;  
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	 var res = this.responseText;
+     	   if(res=="New password has been sent to your Email ID !!"){
+         	   	  alert("New password has been sent to your Email ID !!");
+	         	  var button = document.getElementById('ResetPassword');
+	         	  var originalContent = button.innerHTML;
+	         	  button.innerHTML = originalContent; // Restore original content
+	              button.disabled = false; // Enable the button
+	              //
+	            document.getElementById('txtFUserLoginID').value="";
+	  			document.getElementById('txtEMailID').value="";
+         	} alert("Sorry!! Input values are not matching.");
+      		  	var button = document.getElementById('ResetPassword');
+        	    var originalContent = button.innerHTML;
+        	    button.innerHTML = originalContent; // Restore original content
+                button.disabled = false; // Enable the button
+        }
+      };
+      xhttp.open("GET", "./jqreq.do?ResetPassword=ResetPassword&Details="+details, true);
+      xhttp.send();    
+}
+
+//Function to validate email format
+function validateEmail(email) {
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+//Function to validate mobile number format
+function validateMobileNo(mobile) {
+    var re = /^\d{10}$/;
+    return re.test(mobile);
+}
+//
+function registerCredentails(UserLoginID,MobileNo,UserFullName,Password) {
+    var details=UserLoginID+","+MobileNo+","+UserFullName+","+Password;
+    var xhttp;  
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	 var res = this.responseText;
+     	   if(res=="Register Sucessfully !!"){
+         	   alert("Register Sucessfully !!");
+	         	  var button = document.getElementById('RegisterUser');
+	         	  var originalContent = button.innerHTML;
+	         	  button.innerHTML = originalContent; // Restore original content
+	              button.disabled = false; // Enable the button
+	              //
+	            document.getElementById('txtRUserLoginID').value="";
+	  			document.getElementById('txtRMobileNo').value="";
+	  			document.getElementById('txtRUserFullName').value="";
+	  			document.getElementById('txtRPassword').value="";
+         	   }else{
+         		  alert("User Already Exists.");
+         		  //var button = document.getElementById('RegisterUser');
+            	  //var originalContent = button.innerHTML;
+            	  //button.innerHTML = originalContent; // Restore original content
+                 // button.disabled = false; // Enable the button
+                  
+                  var button = document.getElementById('RegisterUser');
+                  button.innerHTML = "Sign up"; // Assuming original content is "Login"
+                  button.disabled = false;
+               }
+        }
+      };
+      xhttp.open("GET", "./jqreq.do?ResgiterNewUser=ResgiterNewUser&Details="+details, true);
+      xhttp.send();    
+}
+
+function validateCredentails(userName,password) {
+    var userName=document.getElementById('txtUserLoginID').value;
+    var Password=document.getElementById('txtPassword').value;
+    var details=userName+","+Password;
+   /// alert("otp"+otp);
+    var xhttp;  
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+        	 var res = this.responseText;
+     	   if(res=="Not Valid"){
+         	   alert("Please  enter valid Credentials");
+         	  var button = document.getElementById('ValidateUser');
+              button.innerHTML = "Login"; // Assuming original content is "Login"
+              button.disabled = false;
+         	 
+         	   }else{
+         		  //alert("Great");
+         		 document.forms[0].txtUserLoginID.value = document.getElementById('txtUserLoginID').value;
+         	     document.forms[0].txtPassword.value = document.getElementById('txtPassword').value;
+      			url = applicationURL+"hiddenAction=ValidateEUser";
+      			document.forms[0].action = url;	
+      			var enteredCaptcha = document.getElementById('txtCaptchaCode').value;
+                  var originalCaptcha = document.getElementById('hidden-captcha').value;
+                  if (enteredCaptcha === originalCaptcha) {
+                      //alert('CAPTCHA validation successful!');
+                  } else {
+                      alert('Please enter valid CAPTCHA Code.');
+                      document.getElementById('txtCaptchaCode').focus();
+                  }
+                 // alert("ALL WELL");
+      			document.forms[0].submit();
+      		
+             	   }
+        }
+      };
+      xhttp.open("GET", "./jqreq.do?ValidateCredentails=ValidateCredentails&Details="+details, true);
+      xhttp.send();    
+	
+}
+
+	
+function encodeToBase64(inputString) {
+	  return btoa(inputString);
+	}
+//Function Handle 'Enter' Key	
+function whichButton(e) {
+	var key = window.event ? e.keyCode : e.which;
+	if (key == 13) {
+		var actionName = document.forms[0].hiddenAction.value;
+		if(actionName == ""){
+			document.forms[0].hiddenAction.value = "ValidateUser";
+		}
+		setAction(document.forms[0].hiddenAction.value)
+	}
+}//End of 'function whichButton(e) {'
+</script>
+</head>
+<body onload="javascript:onloadFun();">
+
+
+<!-- Preloader -->
+<!-- <div id="preloader"><div data-loader="dual-ring"></div></div>Preloader End -->
+
+<!-- Document Wrapper
+============================================= -->
+<div id="main-wrapper">
+
+  <div class="container" style="padding-top: 5px;">
+     <div class="row">    
+        <div class="col-md-12 d-flex flex-column align-items-md-end flex-row-reverse ">         
+          <ul class="payments-types">
+            <li class=""><a href="https://www.tnstc.in/OTRSOnline/" style="font-size:12px; color: #0000FF"><b>English</b></a></li>
+            <li>|</li>
+            <li class=""><a href="https://www.tnstc.in/Tamil_2025/indexTamil.html" style="font-size:12px; color: #0000FF"><b> தமிழ்</b></a></li>            
+          </ul>
+        </div>
+      </div>
+</div>
+
+  <!-- Header
+  
+  
+  
+  ============================================= -->
+  <header id="header">
+    <div class="container">
+      <div class="header-row">
+        <div class="header-column justify-content-start">         
+          <!-- Logo
+          ============================================= -->
+          <div class="logo">
+          	<a href="https://www.tnstc.in/OTRSOnline/" title="TNSTC"><img src="newHSite/images/logo.png" alt="TNSTC"></a> 
+          </div><!-- Logo end -->
+        </div>
+        
+        <div class="header-column justify-content-end">
+        
+          <!-- Primary Navigation
+          ============================================= -->
+          <nav class="primary-menu navbar navbar-expand-lg">
+            <div id="header-nav" class="collapse navbar-collapse">
+              <ul class="navbar-nav" style="font-size:15px;">
+                <li class="dropdown active"> <a class="dropdown-toggle" href="https://www.tnstc.in/SETCWeb">Operator Login<i class="arrow"></i></a></li>                   
+                             <li class="dropdown-toggle"> <a class="dropdown-toggle" href="https://www.tnstc.in/inner_pages_2024/hire_a__bus.html">Hire a Bus<i class="arrow"></i></a></li>
+                            <!--  <li class="dropdown-toggle"> <a class="dropdown-toggle" href="#">Contact Us</a></li> -->
+                <li class="dropdown"> <a class="dropdown-toggle" href="https://www.tnstc.in/inner_pages_2024/typesofservices.html">Services<i class="arrow"></i></a>
+                  
+                </li>
+                <li class="login-signup ml-lg-2 dropdown">
+                <a class="pl-lg-4 pr-0 dropdown-toggle" href="#">Track Ticket<i class="arrow"></i></a>
+             <ul class="dropdown-menu" style="margin-left: -104.469px; display: none; padding-top: 10px; margin-top: 0px; padding-bottom: 10px; margin-bottom: 0px;">
+                        <li><a class="dropdown-item" href="./preNewTicketCancellation.do">Cancel Ticket</a></li>
+                        <li><a class="dropdown-item" href="./preGuestViewBookingHistory.do">View Ticket</a></li>
+                        <li><a class="dropdown-item" href="./preALLPNRStatus.do">Ticket Status</a></li>
+                       <!-- <li><a class="dropdown-item" href="./preTicketStatus.do">Ticket Status</a></li> --> 
+                        <li><a class="dropdown-item" href="https://www.tnstc.in/SETCPG/preGatewayTransactionStatus.do?hiddenAction=CheckRefundStatus">Refund / Transaction Status</a></li>
+                      </ul>
+                </li>
+                <li class="login-signup ml-lg-2"><a class="pl-lg-4 pr-0" data-toggle="modal" data-target="#login-signup" href="#" title="Login / Sign up">Login / Sign up <span class="d-none d-lg-inline-block"><i class="fas fa-user"></i></span></a></li>
+              </ul>
+            </div>
+          </nav><!-- Primary Navigation end --> 
+        </div>
+        
+        <!-- Collapse Button
+        ============================================= -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-nav"> <span></span> <span></span> <span></span> </button>
+      </div>
+    </div>
+  </header><!-- Header end -->
+  
+  <!-- Content
+  ============================================= -->
+   <div id="content">
+  	<div class="bg-secondaryHome pt-4 pb-3 text-4">
+      <div class="container">
+      <div style="text-align:center; font-size:18px; font-weight:bold; color: #474788">Online Ticket Reservation System (OTRS) </div>
+      
+      <!-- Secondary Navigation
+      ============================================= -->
+      
+       <!-- Tabs -->
+          <div class=" m-n4 p-4" align="center" id="homeTabsM">
+          <ul class="nav nav-tabs border-top style-3 justify-content-center" id="myTab" role="tablist" style="background: #fff;
+    border-radius: 8px; width:50%; margin-top: 40px">        
+            <li class="nav-item"> <a class="nav-link active" id="bus-tab" data-toggle="tab" href="#bus" role="tab" aria-controls="bus" aria-selected="true"><span><i class="fas fa-bus" style="width:50px; color:#2196f3"></i></span> Bus Booking</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="https://www.tnstc.in/OTRSOnline/jqreq.do?hiddenAction=Package" role="tab" aria-controls="pt" aria-selected="false"><span><i class="fas fa-suitcase" style="width:50px; color:#2196f3"></i></span> Package Tour</a> </li>
+          </ul>
+          </div>
+    <!-- Secondary Navigation end -->
+        
+      <!-- Bus Search
+      ============================================= -->
+      <div class="bg-light shadow-md rounded px-4 pt-4 pb-3" style="border-radius:1.25rem!important;opacity:0.8;">
+      <h2 class="text-6 mb-2">Book Bus Tickets</h2>
+        <div class="tab-pane fade show active" id="bus" role="tabpanel" aria-labelledby="bus-tab">
+                <div class="form-row">
+                  <div class="col-md-6 col-lg-3 form-group">
+                   <!--  <input type="text" class="form-control" id="busFrom" required placeholder="From"> -->
+                    <label>Source</label>
+                    <input type="text" class="form-control ui-autocomplete-input" style="font-size:13px" placeholder="From Place" autocomplete="off" id="matchStartPlace" maxlength="25" size="10" onclick="clearAutoCompleteFromPlace()">
+                    <span class="icon-inside"><i class="fas fa-map-marker-alt"></i></span> </div>
+                  <div class="col-md-6 col-lg-3 form-group">
+                   <!--  <input type="text" class="form-control" id="busTo" required placeholder="To"> -->
+                     <label>Destination</label>
+                    <input type="text" class="form-control ui-autocomplete-input" placeholder="To Place" autocomplete="off" style="font-size:13px;" id="matchEndPlace" maxlength="25" size="10" onclick="clearAutoCompleteToPlace()">
+                    <span class="icon-inside"><i class="fas fa-map-marker-alt"></i></span>
+                  </div>
+                  <div class="col-md-4 col-lg-2 form-group">
+                   <!--  <input id="busDepart" type="text" class="form-control" required placeholder="Onward Date">-->
+                    <label>Onward</label>
+                   <input type="text" id="txtdeptDateOtrip" class="form-control hasDatepicker" placeholder="DD/MM/YYYY" readonly="readonly" maxlength="10" size="10" onchange="setOnwardDate();" name="txtdeptDateOtrip">
+                    <span class="icon-inside"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  
+                  <div class="col-md-4 col-lg-2 form-group">
+                   <!--  <input id="busReturn" type="text" class="form-control" required placeholder="Return Date"> -->
+                   <label>Return</label>
+                   <input type="text" id="txtdeptDateRtrip" class="form-control hasDatepicker" placeholder="DD/MM/YYYY" readonly="readonly" maxlength="10" size="10" onchange="setReturnDate();" name="txtdeptDateRtrip">
+                    <span class="icon-inside"><i class="far fa-calendar-alt"></i></span>
+                  </div>
+                  
+                  <div class="col-md-2">
+                  	<br>	
+                   <input name="" type="checkbox" id="chkSingleLadyCheckbox" value="" style="width: 22px; height: 22px; margin-top:10px;"> <span style="color:#888; font-weight:bold; font-size:14px">Single Lady</span>
+                  </div>
+                </div>
+                 <div class="col-md-12 col-lg form-group" style="text-align:center">
+                <!-- <button class="btn btn-primary" type="submit">Search Bus</button> -->
+                <button id="searchButton" onclick="javascript:setSearchAction('SearchService')" class="btn btn-primary text-4" type="submit">Search Bus</button>
+                </div>
+              </div>
+              <!-- Search Package Tour -->
+            <div class="tab-pane fade" id="pt" role="tabpanel" aria-labelledby="pt-tab">             
+              <div align="center">Package Tour..</div>
+              </div>
+         </div><!-- Package Tour Search end -->
+    </div>
+    <div style="height:60px">&nbsp;</div>
+    </div>
+    
+ <!---------------------**************************** -->   
+    <div class="container-fluid" style="background-color:#167bcc; ">
+      <section class="section pb-2">
+        <h2 class="text-9 font-weight-600 text-center" style="color:#fff">Top Destinations</h2>
+         <div class="container">
+         
+         <iframe src="newHSite/td_page/td_page.html" width="100%" height="408" style="border:none;"></iframe> 
+         </div>        
+      </section>
+    </div>
+<!-- Android, Ios and Visitor count Start -->
+<section class="section py-4">
+ <h2 class="text-9 font-weight-600 text-center">Our Growing Numbers</h2>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-4">
+            <div class="featured-box border bg-light rounded style-3" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;">
+              <div class="featured-box-icon h-100 border-right"> <img src="newHSite/images/Android_round.png" width="50" height="50" alt="TNSTC"> </div>
+              <h4 class="mt-3">Downloaded</h4>
+              <p class="text-5">29,09,647+</p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="featured-box border bg-light rounded style-3" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;">
+              <div class="featured-box-icon h-100 border-right"> <img src="newHSite/images/ios_round.png" width="50" height="50" alt="TNSTC"> </div>
+              <h4 class="mt-3">Downloaded</h4>
+              <p class="text-5">2,24,812+</p>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4">
+            <div class="featured-box border bg-light rounded style-3" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;">
+              <div class="featured-box-icon h-100 border-right"> <img src="newHSite/images/VisitorsCount_round.png" width="50" height="50" alt="TNSTC"> </div>
+              <h4 class="mt-3">Visitors</h4>
+              <p class="text-5"><span id="visitCount">256280816</span></p>
+              <script>
+             
+              // Set the initial count value
+              const startingCount = 256280812;
+
+              // Retrieve the current count from localStorage or use startingCount if not present
+              let count = parseInt(localStorage.getItem('visitCount'), 10);
+              
+              // Check if count is a valid number, otherwise initialize with startingCount
+              if (isNaN(count)) {
+                  count = startingCount;
+              } else {
+                  count += 1;
+              }
+
+              // Store the updated count back in localStorage
+              localStorage.setItem('visitCount', count);
+
+              // Display the count on the webpage
+              document.getElementById('visitCount').textContent = count;
+         
+    </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!-- Andrid - Ios Visitor count End-->
+    
+    
+    <!-- Banner
+    ============================================= -->
+    <div class="container-fluid" style="background: rgb(240,242,244);
+background: linear-gradient(0deg, rgba(240,242,244,1) 0%, rgba(183,225,242,1) 100%);">
+    <div class="pt-4 pb-4">
+   
+      <div class="container">
+       <h2 class="text-6 font-weight-600">Latest Events</h2>
+       <div class="row ">
+    <div class="col-sm-8 "><div class="owl-carousel owl-theme owl-loaded owl-drag" data-autoplay="true" data-loop="true" data-nav="true" data-margin="30" data-items-xs="1" data-items-sm="1" data-items-md="1" data-items-lg="1" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;">
+          
+          
+          
+        <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-960px, 0px, 0px); transition: 0.25s; width: 2880px;"><div class="owl-item cloned" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-1.jpg" alt="banner"></a></div></div><div class="owl-item cloned" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-2.jpg" alt="banner"></a></div></div><div class="owl-item active" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-1.jpg" alt="banner"></a></div></div><div class="owl-item" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-2.jpg" alt="banner"></a></div></div><div class="owl-item cloned" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-1.jpg" alt="banner"></a></div></div><div class="owl-item cloned" style="width: 450px; margin-right: 30px;"><div class="item" style="box-shadow: rgba(204, 204, 255, 1.01) 3px 5px 5px;"><a href="#"><img class="img-fluid rounded" src="https://www.tnstc.in/OTRSONLINE/images/small-banner-2.jpg" alt="banner"></a></div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><i class="fa fa-chevron-left"></i></button><button type="button" role="presentation" class="owl-next"><i class="fa fa-chevron-right"></i></button></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div></div></div>
+    <div class="col-sm-4"><!-- <img src="newHSite/images/tn_ad.jpg"> -->
+    <img src="newHSite/images/tn_ad.jpg" alt="TNSTC" border="0" usemap="#Map">
+<map name="Map"><area shape="rect" coords="190,317,316,369" href="https://apps.apple.com/in/app/tnstc/id1533377493" target="_blank">
+<area shape="rect" coords="44,321,170,364" href="https://play.google.com/store/apps/details?id=com.tnstc" target="_blank">
+</map>
+    </div> 
+      
+  </div>
+        
+      </div>
+    </div><!--&nbsp;Banner&nbsp;end&nbsp;-->
+<!-- Banner end -->
+  </div><!-- Content end -->   
+	<!-- Mobile App
+    ============================================= -->
+    <!-- Mobile App end -->
+ 
+  
+  <!-- Footer
+  ============================================= -->
+  <!-- Footer
+  ============================================= -->
+  <footer id="footer">   
+   <section class="section bg-primary shadow-md pt-1 pb-1">
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-6 col-md-4 p-3">
+            <div class="featured-box text-left">          
+             <h5 class="footerTxtColH">About Us</h5>
+<span class="separator_dotted">&nbsp;</span>
+             <ul class="footerlist p-3">
+   <li><a href="https://www.tnstc.in/inner_pages_2024/aboutus.html" class="footerTxtCol">About Us</a></li>           
+  <li><a href="https://www.tnstc.in/inner_pages_2024/information.html" class="footerTxtCol">Information</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/rules_and_regulations.html" class="footerTxtCol">Rules &amp; Regulations</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/reservation_center.html" class="footerTxtCol">Reservation Center</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/specialservices.html" class="footerTxtCol">Special Services</a></li>
+</ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 p-3">
+            <div class="featured-box text-left">
+            <h5 class="footerTxtColH">Quick Links</h5>
+<span class="separator_dotted">&nbsp;</span>
+               <ul class="footerlist p-3">
+  <li><a href="https://www.tnstc.in/inner_pages_2024/counter_address.html" class="footerTxtCol">Counter Address</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/suggestions.html" class="footerTxtCol">Suggestions</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/compatible_browsers.html" class="footerTxtCol">Compatible Browsers</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/browser_settings.html" class="footerTxtCol"> Browser Settings</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/terms_and_conditions.html" class="footerTxtCol">Terms And Conditions</a></li>
+</ul>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-4 p-3">
+            <div class="featured-box text-left">
+            <h5 class="footerTxtColH">General Info</h5>
+<span class="separator_dotted">&nbsp;</span>
+               <ul class="footerlist p-3">
+  <li><a href="https://www.tnstc.in/inner_pages_2024/faq.html" class="footerTxtCol">FAQs</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/privacy_policy.html" class="footerTxtCol">Privacy Policy</a></li>  
+  <li><a href="https://www.tnstc.in/inner_pages_2024/site_map.html" class="footerTxtCol">Site Map</a></li>
+  <li><a href="https://www.tnstc.in/inner_pages_2024/contactus.html" class="footerTxtCol">Contact Us</a></li>
+   <li><a href="https://www.tnstc.in/SETCWeb/FB.do" class="footerTxtCol">Feed Back</a></li> 
+   <!--<li><a href="https://www.tnstc.in/inner_pages_2024/feedback_landing.html" class="footerTxtCol">Feed Back</a></li>-->
+  
+</ul>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+&nbsp;&nbsp;&nbsp;&nbsp;</section>
+    
+    
+    
+     <div class="container">
+      <div class="footer-copyright">
+        <ul class="nav justify-content-center">
+          <li class="nav-item" style="padding: 0 50px;"> Online Reservation Toll Free Number:
+
+ <div class="p-2" style="color: #990000;	font-weight: bold; font-size: 16px; text-align:left"><img src="newHSite/images/phone-icon.png" width="20" height="20"> 08066006572/9513948001</div>
+ <div class="big">and e-mail: <b><a href="mailto:commercial@tnstc.org">commercial@tnstc.org</a> / <a href="mailto:ptcsotrs@gmail.com">ptcsotrs@gmail.com</a></b></div>
+     <div class="mt-2 small">Basispay payment Gateway(24/7) Helpdesk:</div>
+    <div class="p-2" style="color: #990000;	font-weight: bold; font-size: 16px; text-align:left"><img src="newHSite/images/phone-icon.png" width="20" height="20"> 7305068045</div>
+    <div class="small">and e-mail: <a href="mailto:support@basispay.in">support@basispay.in</a></div>
+    </li>
+   
+<li class="nav-item" style="padding: 0 50px;"> Bank Queries-Billdesk / Helpdesk:
+ <div class="p-2" style="color: #990000; font-weight: bold; font-size: 16px; text-align:left"><img src="newHSite/images/phone-icon.png" width="20" height="20"> 044-49076316 / 49076326</div>
+ <div class="small">and e-mail: <a href="mailto:pgsupport@billdesk.com">pgsupport@billdesk.com</a></div>  
+      <div class="mt-2 small" style="text-align:left">Complaints &amp; Suggestions:</div>
+    <div class="p-2" style="color: #990000;	font-weight: bold; font-size: 16px; text-align:left"><img src="newHSite/images/phone-icon.png" width="20" height="20"> WhatsApp No: 9445014448</div>
+     
+    </li>
+          <li class="nav-item" style="padding: 0 50px;"> <a class="nav-link" href="https://radiantinfo.com/" target="_blank">Powered by:
+
+www.radiantinfo.com<br>
+<img src="newHSite/images/radiantinfo_logo.gif">
+</a> </li>
+
+        </ul>
+        <p class="copyright-text">© TNSTC. All Rights Reserved.<br>Ver:24062025-1140</p>
+        
+         
+      </div>
+    </div>
+
+    
+  </footer><!-- Footer end -->
+  
+</div><!-- Document Wrapper end -->
+
+<!-- Back to Top
+============================================= -->
+<a id="back-to-top" data-toggle="tooltip" title="" href="javascript:void(0)" data-original-title="Back to Top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- Modal Dialog - Login/Signup
+============================================= -->
+<div id="login-signup" class="modal fade" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-sm-3">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+        <ul class="nav nav-tabs" role="tablist">
+       <li class="nav-item"> <a id="login-tab" class="nav-link active text-4" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a> </li>
+      <li class="nav-item"> <a id="signup-tab" class="nav-link text-4" data-toggle="tab" href="#signup" role="tab" aria-controls="signup" aria-selected="false">Sign Up</a> </li>
+        </ul>
+        <div class="tab-content pt-4">
+          <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+           
+              <div class="form-group">
+                <input type="email" class="form-control" id="txtUserLoginID" required="" placeholder="User Name or Email ID" autocomplete="off">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="txtPassword" required="" placeholder="Password" autocomplete="new-password">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="txtCaptchaCode" required="" placeholder="Captcha" autocomplete="new-password">
+              </div>
+             <div align="right"><span class="form-group" id="captcha" style="
+  border: 1px solid #CCC;
+  padding:7px;
+  color:#FFF;
+  margin-bottom:20px;
+  background-color:#797979;border-radius:6px; ">PLFdU5</span></div>
+  
+    <input type="hidden" id="hidden-captcha" value="PLFdU5">
+  
+              
+              <div class="row mb-4">
+                <div class="col-sm">
+                  <div class="form-check custom-control custom-checkbox">
+                    <input id="remember-me" name="remember" class="custom-control-input" type="checkbox" checked="checked">
+                    <label class="custom-control-label" for="remember-me">Remember Me</label>
+                  </div>
+                </div>
+                <div class="col-sm text-right"> <a class="justify-content-end" href="#" id="openPopupBtn">Forgot Password ?</a> </div>
+              </div>
+              <button id="ValidateUser" class="btn btn-primary btn-block" type="submit" onclick="javascript:setAction('ValidateUser')">Login</button>
+            
+          </div>
+          <div class="tab-pane fade" id="signup" role="tabpanel" aria-labelledby="signup-tab">
+           
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtRUserLoginID" data-bv-field="number" required="" placeholder="Email ID" autocomplete="new-password">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="txtRMobileNo" required="" placeholder="Mobile Number" autocomplete="new-password">
+              </div>
+               <div class="form-group">
+                <input type="text" class="form-control" id="txtRUserFullName" data-bv-field="number" required="" placeholder="User Full Name" autocomplete="new-password">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="txtRPassword" required="" placeholder="Password" autocomplete="new-password">
+              </div>
+              
+              <div class="row mb-4">
+                <div class="col-sm-8">
+                  <div class="form-check custom-control custom-checkbox">
+                    <input id="remember-me" name="remember" class="custom-control-input" type="checkbox" checked="checked">
+                    <label class="custom-control-label" for="remember-me">I agree to the Terms Of Service</label>
+                  </div>
+                </div>
+                <div class="col-sm text-right"></div>
+              </div>
+              
+              <button id="RegisterUser" class="btn btn-primary btn-block" type="submit" onclick="javascript:setAction('RegisterUser')">Sign up</button>
+            
+          </div>
+          <!-- Forgot Password -->
+          
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">×</span>
+            <h6>Forgot Password</h6>
+                <div class="form-group">
+  <label for="usr">User Name:</label>
+  <input type="text" class="form-control" id="txtFUserLoginID" autocomplete="off">
+</div>
+<div class="form-group">
+  <label for="pwd">e-mail Address:</label>
+  <input type="text" class="form-control" id="txtEMailID" autocomplete="off">
+</div>                
+                <button id="ResetPassword" class="btn btn-primary btn-block" type="submit" onclick="javascript:setAction('ResetPassword')">Reset Password</button>
+                <div class="alert-info small p-1 m-1">New Password will be emailed to the above e-mail address provided.</div>
+        </div>
+    </div>
+          <!-- Forgot Password End -->
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- Modal Dialog - Login/Signup end -->
+
+<!-- Script -->
+<!-- <script src="newHSite/vendor/jquery/jquery.min.js"></script> TAKING TIME-->
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<!-- <script src="newHSite/vendor/jquery-ui/jquery-ui.min.js"></script> TAKING TIME -->
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+<!-- <script src="newHSite/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> TAKING TIME-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="newHSite/vendor/owl.carousel/owl.carousel.min.js"></script> TAKING TIME-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="newHSite/vendor/bootstrap-spinner/bootstrap-spinner.js"></script> 
+<!-- <script src="newHSite/vendor/daterangepicker/moment.min.js"></script>  -->
+<!-- <script src="newHSite/vendor/daterangepicker/daterangepicker.js"></script>  -->
+<script src="newHSite/js/theme.js"></script> 
+<form name="advanceBookingActionForm" method="post">
+	<input type="hidden" name="hiddenStartPlaceID">
+	<input type="hidden" name="hiddenEndPlaceID">
+	<input type="hidden" name="txtStartPlaceCode">
+	<input type="hidden" name="txtEndPlaceCode">
+	<input type="hidden" name="hiddenStartPlaceName">
+	<input type="hidden" name="hiddenEndPlaceName">
+	<input type="hidden" name="matchStartPlace">
+	<input type="hidden" name="matchEndPlace">
+	<input type="hidden" name="txtJourneyDate" value="DD/MM/YYYY">
+	<input type="hidden" name="txtReturnDate" value="DD/MM/YYYY">
+	<input type="hidden" name="hiddenCurrentDate" value="27/06/2025">
+	<input type="hidden" name="hiddenMaxNoOfPassengers">
+	<input type="hidden" name="hiddenMaxValidReservDate" value="27/07/2025">
+	<input type="hidden" name="selectOnwardTimeSlab">
+	<input type="hidden" name="hiddenOnwardJourneyDate">
+	<input type="hidden" name="hiddenReturnJourneyDate">
+	<input type="hidden" name="hiddenTotalMales">
+	<input type="hidden" name="txtAdultMales">
+	<input type="hidden" name="txtChildMales">
+	<input type="hidden" name="selectStartPlace">
+	<input type="hidden" name="selectEndPlace">
+	<input type="hidden" name="txtAdultFemales">
+	<input type="hidden" name="txtChildFemales">
+	<input type="hidden" name="hiddenTotalFemales">   
+	<input type="hidden" name="selectClass">
+	<input type="hidden" name="hiddenOnwardTimeSlab">
+	<input type="hidden" name="hiddenClassCategoryLookupID">
+	<input type="hidden" name="chkTatkal">
+	<input type="hidden" name="languageType">
+	<input type="hidden" name="hiddenAction">
+	<input type="hidden" name="hiddenClassName">
+	<input type="hidden" name="matchPStartPlace">
+	<input type="hidden" name="matchPEndPlace">
+	<input type="hidden" name="txtdeptDatePtrip">
+	<input type="hidden" name="checkSingleLady">
+	<input type="hidden" name="txtUserLoginID">
+	<input type="hidden" name="txtPassword">
+	<input type="hidden" name="txtCaptchaCode">
+	
+	<input type="hidden" name="txtRUserLoginID">
+	<input type="hidden" name="txtRMobileNo">
+	<input type="hidden" name="txtRUserFullName">
+	<input type="hidden" name="txtRPassword">
+	<input type="hidden" name="hiddenUserType">
+	
+	
+</form>
+
+</div><div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div><ul id="ui-id-1" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" unselectable="on" style="display: none;"></ul><div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><ul id="ui-id-2" tabindex="0" class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front" unselectable="on" style="display: none;"></ul><div role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></div><iframe frameborder="0" scrolling="no" style="background-color: transparent; border: 0px; display: none;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" style="display: none;" input="" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:true,&quot;ss&quot;:true}"></div></body></html>
